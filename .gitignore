@@ -1,0 +1,12 @@
+target/
+docs/
+resources/
+application-local.yaml
+src/main/resources/shardingsphere-config-local.yaml
+
+.superpowers/
+.idea/
+*.iml
+*.log
+*.xlsx
+

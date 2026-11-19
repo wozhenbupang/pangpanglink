@@ -1,0 +1,48 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: short-link-attribution-platform
+  config:
+    import: optional:file:./application-local.yaml
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere-config-${database.env:dev}.yaml
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: ${REDIS_PASSWORD:}
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+
+short-link:
+  group:
+    max-num: 20
+  flow-limit:
+    enable: true
+    time-window: 1
+    max-access-count: 20
+  domain:
+    default: nurl.ink:8001
+  stats:
+    locale:
+      amap-key: ${AMAP_KEY:}
+  goto-domain:
+    white-list:
+      enable: true
+      names: '知乎,掘金,博客园,哔哩哔哩,deepseek'
+      details:
+        - zhihu.com
+        - juejin.cn
+        - cnblogs.com
+        - bilibili.com
+        - deepseek.com
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
